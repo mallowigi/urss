@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>Ultimate RSS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- TODO This will contain all the vendor files -->
+    <!-- build:vendorcss styles/vendor.css -->
+    <!-- Inject cdn or external libraries here-->
+
+    <!-- TODO Bower CSS Libraries injected via gulp bower - Do not touch this section -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/semantic-ui/dist/semantic.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- TODO This will contain all the stylesheets -->
+    <!-- build:css styles/urss.css -->
+    <!-- Inject cdn or external stylesheets here -->
+
+    <!-- TODO Stylesheets injected via gulp inject - Do not touch this section -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href=".tmp/styles/urss.css">
+    <!-- endinject -->
+
+    <!-- endbuild -->
+</head>
+<body>
+
+    <main class="ui stackable center aligned page grid">
+        <h1>My RSS</h1>
+        <section class="ui celled grid">
+            <div class="row">
+                <!-- Search bar -->
+                <aside class="four wide column">
+                    <div class="ui action input">
+                        <input type="text" title="Search" placeholder="Search"/>
+
+                        <div class="ui right labeled icon button">Search<i class="search icon"></i></div>
+                    </div>
+                </aside>
+
+                <!-- Content -->
+                <aside class="twelve wide column">
+                    <div class="ui segment">
+                        <header class="ui center aligned vertical segment">
+                            <h1 class="ui header">URL 1</h1>
+                        </header>
+
+                        <article class="ui segment">
+                            <header class="ui header">
+                                <h3>Title - 17/09/14</h3>
+                            </header>
+
+                            <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis delectus earum harum
+                                               libero? Deleniti ducimus eius et, ipsam laborum praesentium repellendus. Eos facilis nihil
+                                               nulla? Accusantium
+                                               atque incidunt veritatis.</p>
+                        </article>
+
+                    </div>
+
+                </aside>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TODO This will contain all the vendor files -->
+    <!-- build:vendor scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/semantic-ui/dist/semantic.js"></script>
+    <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- TODO This will contain all the source files -->
+    <!-- build:js scripts/urss.js -->
+    <!-- Include external sources here if needed -->
+
+    <!-- TODO Injected sources injected via gulp inject - Do not touch this section -->
+    <!-- inject:js -->
+    <script src=".tmp/scripts/urss.js"></script>
+    <script src=".tmp/scripts/urss.json.js"></script>
+    <script src=".tmp/scripts/urss.tpl.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+{
+  "requireCurlyBraces": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "try",
+    "catch"
+  ],
+  "requireSpaceAfterKeywords": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "switch",
+    "return",
+    "try",
+    "catch"
+  ],
+  "requireParenthesesAroundIIFE": true,
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInConditionalExpression": {
+    "afterTest": true,
+    "beforeConsequent": true,
+    "afterConsequent": true,
+    "beforeAlternate": true
+  },
+  "requireSpacesInAnonymousFunctionExpression": {
+    "beforeOpeningRoundBrace": true,
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInFunctionDeclaration": {
+    "beforeOpeningRoundBrace": true,
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowEmptyBlocks": true,
+  "requireBlocksOnNewline": true,
+  "disallowSpacesInsideObjectBrackets": true,
+  "disallowSpacesInsideArrayBrackets": true,
+  "disallowSpacesInsideParentheses": true,
+  "disallowQuotedKeysInObjects": "allButReserved",
+  "requireCommaBeforeLineBreak": true,
+  "disallowMultipleLineBreaks": true,
+  "requireOperatorBeforeLineBreak": [
+    "?",
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!==",
+    ">",
+    ">=",
+    "<",
+    "<="
+  ],
+  "disallowSpaceAfterPrefixUnaryOperators": [
+    "++",
+    "--",
+    "+",
+    "-",
+    "~",
+    "!"
+  ],
+  "disallowSpaceBeforePostfixUnaryOperators": [
+    "++",
+    "--"
+  ],
+  "requireSpaceBeforeBinaryOperators": [
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "requireSpaceAfterBinaryOperators": [
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "disallowKeywords": ["with"],
+  "validateQuoteMarks": "'",
+  "disallowMixedSpacesAndTabs": true,
+  "disallowTrailingWhitespace": true,
+  "disallowTrailingComma": true,
+  "disallowSpaceAfterObjectKeys": true,
+  "disallowYodaConditions": true,
+  "requireLineFeedAtFileEnd": true,
+  "maximumLineLength": {
+    "value": 140,
+    "allowComments": true,
+    "allowRegex": true,
+    "allowUrlComments": true
+  },
+  "requireCapitalizedConstructors": true,
+  "requireDotNotation": true,
+  "excludeFiles": [
+    "node_modules/**",
+    "app/bower_components/**/*",
+    "app/.tmp/**/*",
+    "app/**/translations.js",
+    "app/**/*env*.js"
+  ],
+  "disallowNewlineBeforeBlockStatements": true
+}
