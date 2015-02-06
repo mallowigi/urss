@@ -1,21 +1,16 @@
 /**
  * Created by eliorb on 29/08/2014.
  */
-var lazypipe       = require('lazypipe'),
-    mainBowerFiles = require('main-bower-files');
+var lazypipe   = require('lazypipe'),
+mainBowerFiles = require('main-bower-files');
 
 //jshint camelcase:false
 module.exports = function (gulp, $, gutil, helpers, src, options) {
   'use strict';
 
   // Leveraging lazypipe
-  var compassTask = lazypipe()
-    .pipe($.compass, {
-      config_file: 'app/config.rb',
-      css: 'app/styles/css',
-      sass: 'app/styles',
-      image: 'app/images'
-    })
+  var sassTask = lazypipe()
+    .pipe($.sass)
     // Autoprefix properties which last version are still red
     .pipe($.autoprefixer, options.autoprefix)
     // Concat css file
@@ -34,21 +29,21 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
   // --------------------------------------------
 
   // Run compass
-  gulp.task('compass', 'Compile sass files using compass', function () {
+  gulp.task('sass', 'Compile sass files', function () {
     return gulp.src(src.sass, {cwd: src.cwd})
       // Only process changed files
       .pipe($.changed(src.stylesDir))
-      .pipe(compassTask())
+      .pipe($.sourcemaps.init())
+      .pipe(sassTask())
       .on('error', helpers.logError)
       // And write in the styles dir
+      .pipe(minifyCssTask())
+      .pipe($.sourcemaps.write())
+      // then write the min file
       .pipe(gulp.dest(src.stylesDir, {cwd: src.tmp}))
       .pipe($.size())
-      .pipe($.connect.reload())
-      // Run minify only if --min
-      .pipe($.if(gutil.env.min, minifyCssTask()))
-      // then write the min file
-      .pipe($.if(gutil.env.min, gulp.dest(src.stylesDir, {cwd: src.tmp})))
-      .pipe($.if(gutil.env.min, $.size()));
+      .pipe($.connect.reload());
+
   });
 
   gulp.task('minifycss', 'Minify css', function () {

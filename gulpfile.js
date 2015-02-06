@@ -110,14 +110,14 @@ require('./gulp/karma')(gulp, $, gutil, helpers, src, options);
 
 gulp.task('dev-build', function () {
   run(
-    ['compass', 'js', 'env', 'templates', 'resources']
+    ['sass', 'js', 'env', 'templates', 'resources']
   );
 });
 
 gulp.task('build', 'Create the distribution', function () {
   run(
     'clean',
-    ['compass', 'js', 'env', 'templates', 'resources'],
+    ['sass', 'js', 'env', 'templates', 'resources'],
     ['bower', 'inject:dist'],
     //'jshint',
     ['usemin', 'copy']
@@ -128,7 +128,7 @@ gulp.task('serve', 'Serve the app and watch for changes', function () {
   run(
     'clean',
     ['bowerinstall', 'npminstall'],
-    ['compass', 'js', 'env', 'templates', 'resources'],
+    ['sass', 'js', 'env', 'templates', 'resources'],
     ['bower', 'inject:dist'],
     'connect',
     'watch', 'open'
