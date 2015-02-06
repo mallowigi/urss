@@ -49,7 +49,7 @@ var src = {
 var options = _.extend(pkg, {
   port: 9090,
   autoprefix: 'last 1 version',
-  module: 'urss',
+  module: 'urssApp',
   templateModule: 'urss.views',
   templatePo: 'template.pot',
   translationsFile: 'translations.js',
@@ -110,16 +110,15 @@ require('./gulp/karma')(gulp, $, gutil, helpers, src, options);
 
 gulp.task('dev-build', function () {
   run(
-    ['sass', 'js', 'env', 'templates', 'resources']
+    ['sass', 'js', 'templates', 'resources']
   );
 });
 
 gulp.task('build', 'Create the distribution', function () {
   run(
     'clean',
-    ['sass', 'js', 'env', 'templates', 'resources'],
+    ['sass', 'js', 'templates', 'resources'],
     ['bower', 'inject:dist'],
-    //'jshint',
     ['usemin', 'copy']
   );
 });
@@ -128,7 +127,7 @@ gulp.task('serve', 'Serve the app and watch for changes', function () {
   run(
     'clean',
     ['bowerinstall', 'npminstall'],
-    ['sass', 'js', 'env', 'templates', 'resources'],
+    ['sass', 'js', 'templates', 'resources'],
     ['bower', 'inject:dist'],
     'connect',
     'watch', 'open'

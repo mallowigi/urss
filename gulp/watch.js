@@ -29,7 +29,7 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
 
     // When compass files change, recompile
     $.watch(src.sass, {cwd: src.cwd, name: 'sass'}, function () {
-      run(['compass']);
+      run(['sass']);
     });
 
     // When templates change
@@ -39,7 +39,7 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
 
     // When scripts change, rewrite the concat file
     $.watch(src.scripts, {cwd: src.cwd, name: 'javascripts'}, function () {
-      run(['js', 'env']);
+      run(['js']);
     });
 
     // When bower.json change, run bower to inject

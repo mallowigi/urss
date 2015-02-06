@@ -7,7 +7,9 @@ module.exports = function (gulp, $, gutil, helpers, src) {
   'use strict';
   gulp.task('jshint', 'Executes jshint on the files', function () {
     return gulp.src(src.scripts, {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
       // check whether there are changes
       .pipe($.changed(src.scripts))
       // run jshine

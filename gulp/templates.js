@@ -7,7 +7,9 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
   // combine all templates
   gulp.task('templates', 'Compile templates in templateCache', function () {
     return gulp.src(src.templates, {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
       // run htmlmin
       .pipe($.htmlmin({removeComments: true, collapseWhitespace: true}))
       // Run ngtemplate under the module
@@ -28,7 +30,9 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
 
   gulp.task('resources', 'Compiles resources in templateCache', function () {
     return gulp.src(src.resources, {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
       .pipe($.angularTemplatecache({
         module: options.module,
         root: 'resources',

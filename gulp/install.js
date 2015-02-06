@@ -13,7 +13,10 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
     }
     else if (gutil.env.install) {
       return gulp.src(['bower.json'])
-        .on('error', helpers.logError)
+        .pipe($.plumber({
+          errorHandler: helpers.logError
+        }))
+      
         .pipe($.run('bower prune'))
         .pipe($.run('bower install -q'))
         ;
@@ -30,7 +33,10 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
     }
     else if (gutil.env.install) {
       return gulp.src(['package.json'])
-        .on('error', helpers.logError)
+        .pipe($.plumber({
+          errorHandler: helpers.logError
+        }))
+
         .pipe($.run('npm prune'))
         .pipe($.run('npm install -s'))
         ;

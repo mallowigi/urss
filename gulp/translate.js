@@ -2,14 +2,16 @@
  * Created by eliorb on 29/08/2014.
  */
 var path = require('path'),
-    run  = require('run-sequence');
+run = require('run-sequence');
 
 module.exports = function (gulp, $, gutil, helpers, src, options) {
   'use strict';
 
   gulp.task('extract:strings', 'Extract strings from the application', function () {
     return gulp.src(['index.html', '404.html', src.templates, src.scripts], {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
       // Extract strings into the templatePo file
       .pipe($.angularGettext.extract(options.templatePo))
       // Write it in the translations dir
@@ -18,7 +20,9 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
 
   gulp.task('compile:trans', 'Compile .pot files in translations.js', function () {
     return gulp.src(src.pot, {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
       // Compile pot files in js format under the module specified
       .pipe($.angularGettext.compile({module: options.module}))
       // Append all languages into one file
