@@ -1,0 +1,24 @@
+<!-- Search bar -->
+<div class="ui segment">
+    <form class="ui form" name="addFeed" ng-submit="feedHistory.addFeed()">
+        <div class="ui field action input" ng-class="{'error': addFeed.$invalid}">
+            <input type="url" title="Search" placeholder="Add a feed URL"
+                   ng-model="feedHistory.feed"/>
+
+            <div class="ui icon button" ng-click="feedHistory.addFeed()">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </form>
+
+    <div class="ui selection list" ng-repeat="feed in feedHistory.feeds">
+        <div class="item"
+             ng-click="feedHistory.selectFeed($index)"
+             ng-class="{'active': feedHistory.selected === feed}">
+
+            <div class="content">
+                {{ ::feed }} <i class="right floated close icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
