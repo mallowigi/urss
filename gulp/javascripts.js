@@ -1,8 +1,8 @@
 /**
  * Created by eliorb on 29/08/2014.
  */
-var lazypipe       = require('lazypipe'),
-    mainBowerFiles = require('main-bower-files');
+var lazypipe   = require('lazypipe'),
+mainBowerFiles = require('main-bower-files');
 
 module.exports = function (gulp, $, gutil, helpers, src, options) {
   'use strict';
@@ -35,26 +35,30 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
   gulp.task('js', 'Compiles the app', function () {
     // Remember to not include env files
     return gulp.src([src.main, src.modules, src.scripts, '!' + src.envFiles], {cwd: src.cwd})
-      .on('error', helpers.logError)
+      .pipe($.plumber({
+        errorHandler: helpers.logError
+      }))
+      .pipe($.sourcemaps.init())
       // Context based environment variables
       .pipe($.preprocess({context: options.context}))
+      .pipe($['6to5']())
       // Run jsTask
       // ng annotate
       .pipe($.ngAnnotate())
-      .on('error', helpers.logError)
       // Create file pkgname.js
       .pipe($.concatUtil(options.name + '.js'))
       // Add the banner at the top
       .pipe($.concatUtil.header(helpers.banner(options)))
       // Generate the js file
-      .pipe(gulp.dest(src.scriptsDir, {cwd: src.tmp}))
-      .pipe($.connect.reload())
-      .pipe($.size())
+      //.pipe(gulp.dest(src.scriptsDir, {cwd: src.tmp}))
+      //.pipe($.size())
       // If --min is set, uglify and create a min file
-      .pipe($.if(gutil.env.min, uglifyTask()))
+      .pipe(uglifyTask())
+      .pipe($.sourcemaps.write())
       // then write the min file
-      .pipe($.if(gutil.env.min, gulp.dest(src.scriptsDir, {cwd: src.tmp})))
-      .pipe($.if(gutil.env.min, $.size()));
+      .pipe(gulp.dest(src.scriptsDir, {cwd: src.tmp}))
+      .pipe($.size())
+      .pipe($.connect.reload());
   });
 
   gulp.task('uglify', 'Minifies the app', function () {
@@ -69,7 +73,7 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
   });
 
   gulp.task('env', 'Load env dependent files', function () {
-    var env     = gutil.env.env || 'dev',
+    var env = gutil.env.env || 'dev',
         envFile = 'env_' + env + '.js';
 
     helpers.logInfo('Loading ' + env + ' environment');
