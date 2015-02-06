@@ -58,6 +58,10 @@ angular.module('urss.feedViewer')
            */
           this.initFeeds = function initFeeds () {
             var list = saveManager.getList();
+            if (!list || !angular.isArray(list)) {
+              return;
+            }
+
             utils.replaceArray(this.feeds, list);
           };
 
@@ -69,6 +73,11 @@ angular.module('urss.feedViewer')
 
             if (!url || !urlValidator.validate(url)) {
               $log.warn(`Invalid url: ${url}`);
+              return;
+            }
+
+            if (this.feeds.indexOf(url) > -1) {
+              $log.warn('This feed already exists!');
               return;
             }
 
@@ -93,11 +102,31 @@ angular.module('urss.feedViewer')
            * @param {Number} index
            */
           this.selectFeed = function selectFeed (index) {
-            if (index > this.selected.length) {
+            if (index >= this.selected.length) {
               $log.warn(`Invalid index: ${index}`);
+              return;
             }
 
             this.selected = this.feeds[index];
+
+            // Load feed into viewer
+            loadFeedIntoViewer.call(this);
+          };
+
+          this.deleteFeed = function deleteFeed (index) {
+            if (index >= this.feeds.length) {
+              $log.warn(`Invalid index: ${index}`);
+              return;
+            }
+
+            utils.remove(this.feeds, index);
+
+            // Set selected to the feed at index, otherwise the last one
+            var length = this.feeds.length;
+            this.selected = (index < length) ? this.feeds[index] : this.feeds[length - 1];
+
+            // Update the save
+            saveManager.writeList(this.feeds);
 
             // Load feed into viewer
             loadFeedIntoViewer.call(this);

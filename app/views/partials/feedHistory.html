@@ -12,7 +12,8 @@
     </form>
 
     <div class="ui selection list list_feed">
-        <div class="item item_feed transition" ng-repeat="feed in feedHistory.feeds"
+        <div class="item item_feed transition"
+             ng-repeat="feed in feedHistory.feeds"
              ng-click="feedHistory.selectFeed($index)"
              ng-class="{'active': feedHistory.selected === feed}">
 

@@ -8,4 +8,7 @@
  * @description
  * The application feed viewer namespace
  */
-angular.module('urss.feedViewer', []);
+angular.module('urss.feedViewer', [
+  'urss.common',
+  'urss.config'
+]);
