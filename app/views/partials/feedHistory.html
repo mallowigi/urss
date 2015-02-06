@@ -1,8 +1,19 @@
 <!-- Search bar -->
 <div class="ui segment">
-    <form class="ui form" name="addFeed" ng-submit="feedHistory.addFeed()">
+    <form class="ui form" name="addFeed"
+          ng-class="{'error': addFeed.$invalid}"
+          ng-submit="feedHistory.addFeed()">
+
+        <!-- Error Message -->
+        <div class="ui small error message" ng-messages="addFeed.add.$error">
+            <p ng-message="url">Invalid Url Address.</p>
+            <p ng-message="duplicates">This feed is already on the list</p>
+        </div>
+
         <div class="ui field action input" ng-class="{'error': addFeed.$invalid}">
             <input type="url" title="Search" placeholder="Add a feed URL"
+                   name="add" id="addText"
+                   validate-duplicates
                    ng-model="feedHistory.feed"/>
 
             <div class="ui icon button" ng-click="feedHistory.addFeed()">
@@ -10,6 +21,8 @@
             </div>
         </div>
     </form>
+
+    <div class="ui divider"></div>
 
     <div class="ui selection list list_feed">
         <div class="item item_feed transition"

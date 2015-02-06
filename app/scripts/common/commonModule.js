@@ -4,5 +4,6 @@
   // This is the common module
 angular.module('urss.common', [
   'ngAnimate',
+  'ngMessages',
   'angular.filter'
 ]);
