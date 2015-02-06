@@ -1,0 +1,24 @@
+.item.item_feed {
+  // Override Semantic UI transition
+  -webkit-transition: all 0.5s ease-out !important;
+  -moz-transition: all 0.5s ease-out !important;
+  -o-transition: all 0.5s ease-out !important;
+  transition: all 0.5s ease-out !important;
+  position: relative;
+
+  &.ng-enter {
+    opacity: 0;
+    top: -30px;
+  }
+  &.ng-enter.ng-enter-active,
+  &.ng-leave {
+    opacity: 1;
+    top: 0;
+    left: 0;
+  }
+
+  &.ng-leave.ng-leave-active {
+    opacity: 0;
+    left: -30px;
+  }
+}

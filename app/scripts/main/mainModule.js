@@ -10,9 +10,6 @@
  * The application main module
  */
 angular.module('urssApp', [
-  'ngAnimate',
-  'angular.filter',
-
   'urss.common',
   'urss.config',
 
