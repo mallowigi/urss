@@ -21,6 +21,14 @@ angular.module('urss.common')
       replaceArray: function replaceArray (arr, newArr) {
         arr.length = 0;
         Array.prototype.splice.apply(arr, [0, 0].concat(newArr));
+      },
+
+      remove: function remove (arr, index) {
+        if (index < 0 || index > arr.length) {
+          throw Error(`Invalid index: ${index}`);
+        }
+
+        Array.prototype.splice.call(arr, index, 1);
       }
     };
   }]
