@@ -20,11 +20,13 @@ angular.module('urss.feedViewer')
         '$scope',
         '$log',
         '$timeout',
+        'utils',
         'urlValidator',
         'saveManager',
         function feedHistoryCtrl ($scope,
                                   $log,
                                   $timeout,
+                                  utils,
                                   urlValidator,
                                   saveManager) {
 
@@ -50,6 +52,14 @@ angular.module('urss.feedViewer')
            * @type {string}
            */
           this.feed = '';
+
+          /**
+           * Init feeds from Local storage
+           */
+          this.initFeeds = function initFeeds () {
+            var list = saveManager.getList();
+            utils.replaceArray(this.feeds, list);
+          };
 
           /**
            * Add a new feed to the list
@@ -100,7 +110,10 @@ angular.module('urss.feedViewer')
         }
       ],
       controllerAs: 'feedHistory',
-      bindToController: true
+      bindToController: true,
+      link: function (scope, element, attrs, ctrl) {
+        ctrl.initFeeds();
+      }
     };
   }]
 );
