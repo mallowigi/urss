@@ -9,7 +9,7 @@ angular.module('urss.feedViewer')
  * @description
  * Directive feedHistory
  */
-  .directive('feedHistory', [function feedHistoryDirective () {
+  .directive('feedHistory', ['$document', function feedHistoryDirective ($document) {
     'use strict';
 
     return {
@@ -23,6 +23,7 @@ angular.module('urss.feedViewer')
         'utils',
         'urlValidator',
         'saveManager',
+        'feedHistoryStack',
         'FeedViewerManager',
         function feedHistoryCtrl ($scope,
                                   $log,
@@ -30,18 +31,14 @@ angular.module('urss.feedViewer')
                                   utils,
                                   urlValidator,
                                   saveManager,
+                                  feedHistoryStack,
                                   FeedViewerManager) {
 
           /**
            * The list of feeds
            * @type {Array}
            */
-          this.feeds = [
-            'http://www.feedforall.com/sample.xml',
-            'http://www.feedforall.com/sample-feed.xml',
-            'http://www.feedforall.com/blog-feed.xml',
-            'http://www.rss-specifications.com/blog-feed.xml'
-          ];
+          this.feeds = [];
 
           /**
            * Currently selected feed
@@ -72,6 +69,9 @@ angular.module('urss.feedViewer')
             // Set currently selected and load viewer
             if (active) {
               this.selected = active;
+              // add to history
+              feedHistoryStack.push(this.selected);
+              // Load into viewer
               loadFeedIntoViewer.call(this);
             }
           };
@@ -101,6 +101,9 @@ angular.module('urss.feedViewer')
             // reset value
             this.feed = '';
 
+            // add to history
+            feedHistoryStack.push(url);
+
             // Save in local storage
             saveState.call(this);
             // Load feed into viewer
@@ -119,6 +122,9 @@ angular.module('urss.feedViewer')
 
             this.selected = this.feeds[index];
 
+            // add to history
+            feedHistoryStack.push(this.selected);
+
             // Update the save
             saveState.call(this);
 
@@ -126,6 +132,10 @@ angular.module('urss.feedViewer')
             loadFeedIntoViewer.call(this);
           };
 
+          /**
+           * Delete a feed at a given index
+           * @param index
+           */
           this.deleteFeed = function deleteFeed (index) {
             if (index >= this.feeds.length) {
               $log.warn(`Invalid index: ${index}`);
@@ -143,6 +153,29 @@ angular.module('urss.feedViewer')
 
             // Load feed into viewer
             loadFeedIntoViewer.call(this);
+          };
+
+          /**
+           * Go back at the history
+           */
+          this.goBack = function goBack () {
+            var url = feedHistoryStack.back(),
+                urlIndex;
+
+            console.log(url);
+
+            if (url) {
+              urlIndex = this.feeds.indexOf(url);
+
+              if (urlIndex > -1) {
+                this.selected = this.feeds[urlIndex];
+                // Update the save
+                saveState.call(this);
+
+                // Load feed into viewer
+                loadFeedIntoViewer.call(this);
+              }
+            }
           };
 
           /**
@@ -167,6 +200,14 @@ angular.module('urss.feedViewer')
       link: function feedHistoryLink (scope, element, attrs, ctrl) {
         // Init feeds on start
         ctrl.initFeeds();
+
+        // Go back on backspace
+        $document.on('keydown', function (event) {
+          // Backspace
+          if (event.which === 8) {
+            ctrl.goBack();
+          }
+        });
       }
     };
   }]
