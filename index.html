@@ -14,6 +14,30 @@
 </head>
 
 <body>
+
+    <main class="ui stackable center aligned page grid">
+
+        <header class="sixteen wide column">
+            <div class="ui center aligned huge icon header">
+                <i class="circular feed icon"></i>
+                Ultimate RSS Reader
+            </div>
+        </header>
+
+        <section class="ui grid">
+            <div class="row">
+                <aside class="six wide column">
+                    <feed-history class="ui sticky fixed"></feed-history>
+                </aside>
+
+                <!-- Content -->
+                <aside class="ten wide column">
+                    <feed-viewer></feed-viewer>
+                </aside>
+            </div>
+        </section>
+
+    </main>
     <script src="javascripts/dist/scripts/vendor.js"></script>
     <script src="javascripts/dist/scripts/urssApp.js"></script>
 </body>
