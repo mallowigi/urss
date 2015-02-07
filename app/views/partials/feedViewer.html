@@ -6,7 +6,7 @@
             <h1 class="ui header">{{ feedViewer.title }}</h1>
         </header>
 
-        <article class="ui segment">
+        <article class="ui segment" ng-repeat="article in feedViewer.displayedArticles">
             <header class="ui header">
                 <h3>Title - 17/09/14</h3>
             </header>
@@ -24,6 +24,10 @@
         </header>
         <article class="ui center aligned vertical segment">
             <p class="content">Please select a feed on the list</p>
+        </article>
+
+        <article ng-show="feedViewer.error">
+            <p class="content ui error message">{{ feedViewer.error }}</p>
         </article>
     </div>
 

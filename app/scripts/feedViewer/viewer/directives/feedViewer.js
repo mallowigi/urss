@@ -33,6 +33,10 @@ angular.module('urss.feedViewer')
 
             displayedArticles: {
               get: () => FeedViewerManager.displayedArticles
+            },
+
+            error: {
+              get: () => FeedViewerManager.error
             }
 
           });

@@ -28,10 +28,14 @@ angular.module('urss.feedViewer')
     };
 
     this.$get = [
-      '$http',
       '$log',
+      '$parse',
       'utils',
-      function FeedViewerManager ($http, $log, $utils) {
+      'googleFeedLoader',
+      function FeedViewerManager ($log,
+                                  $parse,
+                                  utils,
+                                  googleFeedLoader) {
         return {
           /**
            * Whether the viewer is loading
@@ -44,19 +48,36 @@ angular.module('urss.feedViewer')
           numArticles: numArticles,
 
           /**
+           * The feed loaded
+           */
+          feed: {},
+
+          /**
+           * If there is an error
+           */
+          error: null,
+
+          /**
            * The Title of the feed (url)
            */
-          title: '',
+          get title () {
+            return $parse('feed.title')(this);
+          },
 
           /**
            * The list of fetched articles
            */
-          articles: [],
+          get articles () {
+            return $parse('feed.entries')(this);
+          },
 
           /**
            * A subset of articles
            */
-          shownArticles: [],
+          get displayedArticles () {
+            // Use Parse to apply a limitTo filter (one can also inject the filter instead, useful for mocking)
+            return $parse('feed.entries | limitTo:numArticles')(this);
+          },
 
           /**
            * Load feed into view
@@ -64,23 +85,35 @@ angular.module('urss.feedViewer')
            */
           loadFeed (url) {
 
+            $log.info(`Loading url ${url}`);
+
             // Set loading state
             this.isLoading = true;
-            this.title = url;
 
-            $http.get(url)
+            googleFeedLoader.getRSSFeed(url)
 
               .then((feed) => {
-                this.articles = feed;
-                // Get first x articles
-                this.shownArticles = this.articles.slice(0, this.numArticles);
+                $log.info(feed);
+
+                this.feed = feed;
+                this.error = null;
+              })
+
+              .catch((err) => {
+                $log.error(err);
+
+                // Reset feed
+                this.feed = {};
+                this.error = err;
+                // Reset numArticles
+                this.numArticles = numArticles;
               })
 
               .finally(() => {
                 // Hide loader
                 this.isLoading = false;
-              }
-            );
+              })
+            ;
           }
 
         };

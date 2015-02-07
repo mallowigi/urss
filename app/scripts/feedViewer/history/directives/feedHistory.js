@@ -104,7 +104,7 @@ angular.module('urss.feedViewer')
            * @param {Number} index
            */
           this.selectFeed = function selectFeed (index) {
-            if (index >= this.selected.length) {
+            if (index >= this.feeds.length) {
               $log.warn(`Invalid index: ${index}`);
               return;
             }
@@ -142,7 +142,8 @@ angular.module('urss.feedViewer')
       ],
       controllerAs: 'feedHistory',
       bindToController: true,
-      link: function (scope, element, attrs, ctrl) {
+      link: function feedHistoryLink (scope, element, attrs, ctrl) {
+        // Init feeds on start
         ctrl.initFeeds();
       }
     };
