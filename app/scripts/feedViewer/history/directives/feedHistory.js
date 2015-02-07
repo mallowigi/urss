@@ -59,12 +59,21 @@ angular.module('urss.feedViewer')
            * Init feeds from Local storage
            */
           this.initFeeds = function initFeeds () {
-            var list = saveManager.getList();
+            var list = saveManager.getList(),
+                active = saveManager.getActive();
+
             if (!list || !angular.isArray(list)) {
               return;
             }
 
+            // Set the list of feeds
             utils.replaceArray(this.feeds, list);
+
+            // Set currently selected and load viewer
+            if (active) {
+              this.selected = active;
+              loadFeedIntoViewer.call(this);
+            }
           };
 
           /**
@@ -93,8 +102,7 @@ angular.module('urss.feedViewer')
             this.feed = '';
 
             // Save in local storage
-            saveManager.writeList(this.feeds);
-
+            saveState.call(this);
             // Load feed into viewer
             loadFeedIntoViewer.call(this);
           };
@@ -110,6 +118,9 @@ angular.module('urss.feedViewer')
             }
 
             this.selected = this.feeds[index];
+
+            // Update the save
+            saveState.call(this);
 
             // Load feed into viewer
             loadFeedIntoViewer.call(this);
@@ -128,14 +139,25 @@ angular.module('urss.feedViewer')
             this.selected = (index < length) ? this.feeds[index] : this.feeds[length - 1];
 
             // Update the save
-            saveManager.writeList(this.feeds);
+            saveState.call(this);
 
             // Load feed into viewer
             loadFeedIntoViewer.call(this);
           };
 
+          /**
+           * Load feed into the feedviewer
+           */
           function loadFeedIntoViewer () {
             $timeout(() => FeedViewerManager.loadFeed(this.selected));
+          }
+
+          /**
+           * Save in local storage
+           */
+          function saveState () {
+            saveManager.writeList(this.feeds);
+            saveManager.writeActive(this.selected);
           }
 
         }
