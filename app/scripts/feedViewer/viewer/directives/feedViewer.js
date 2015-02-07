@@ -31,6 +31,10 @@ angular.module('urss.feedViewer')
               get: () => FeedViewerManager.title
             },
 
+            feedUrl: {
+              get: () => FeedViewerManager.feedUrl
+            },
+
             displayedArticles: {
               get: () => FeedViewerManager.displayedArticles
             },
@@ -43,9 +47,7 @@ angular.module('urss.feedViewer')
         }
       ],
       controllerAs: 'feedViewer',
-      bindToController: true,
-      link: function (scope, elem, attrs, ctrl) {
-      }
+      bindToController: true
     };
   }]
 );

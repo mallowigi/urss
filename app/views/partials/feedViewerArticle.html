@@ -1,0 +1,8 @@
+<article class="ui segment">
+    <header class="ui header">
+        <h3 class="ui header">{{::article.title }} - {{ ::article.publishedDate | moment:'DD/MM/YYYY' }}</h3>
+    </header>
+
+    <p class="content" ng-bind-html="::article.content">
+    </p>
+</article>

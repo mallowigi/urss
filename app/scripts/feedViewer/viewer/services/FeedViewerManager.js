@@ -65,6 +65,13 @@ angular.module('urss.feedViewer')
           },
 
           /**
+           * The feed url
+           */
+          get feedUrl () {
+            return $parse('feed.feedUrl')(this);
+          },
+
+          /**
            * The list of fetched articles
            */
           get articles () {
@@ -90,6 +97,7 @@ angular.module('urss.feedViewer')
             // Set loading state
             this.isLoading = true;
 
+            // Load feed
             googleFeedLoader.getRSSFeed(url)
 
               .then((feed) => {

@@ -5,5 +5,6 @@
 angular.module('urss.common', [
   'ngAnimate',
   'ngMessages',
+  'ngSanitize',
   'angular.filter'
 ]);

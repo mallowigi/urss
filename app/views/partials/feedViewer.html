@@ -4,20 +4,17 @@
     <div ng-if="feedViewer.title">
         <header class="ui center aligned vertical segment">
             <h1 class="ui header">{{ feedViewer.title }}</h1>
+
+            <h3 class="ui header">{{ feedViewer.feedUrl }}</h3>
         </header>
 
-        <article class="ui segment" ng-repeat="article in feedViewer.displayedArticles">
-            <header class="ui header">
-                <h3>Title - 17/09/14</h3>
-            </header>
+        <feed-viewer-article ng-repeat="article in feedViewer.displayedArticles"
+                             article="article">
 
-            <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis delectus earum harum
-                               libero? Deleniti ducimus eius et, ipsam laborum praesentium repellendus. Eos facilis nihil
-                               nulla? Accusantium
-                               atque incidunt veritatis.</p>
-        </article>
+        </feed-viewer-article>
     </div>
 
+    <!-- Case when there is no feed or there is an error -->
     <div ng-if="!feedViewer.title">
         <header class="ui center aligned vertical segment">
             <h1 class="ui header">No feed loaded</h1>
