@@ -10,10 +10,10 @@ module.exports = function (gulp, $, gutil, helpers, src, options) {
         errorHandler: helpers.logError
       }))
       .pipe($.usemin({
-        css: [$.minifyCss(), $.rev(), $.concatUtil.header(helpers.banner(options))],
-        js: [$.uglify(), $.rev(), $.concatUtil.header(helpers.banner(options))],
-        vendor: [$.ngAnnotate(), $.uglify(), $.rev()],
-        vendorcss: [$.minifyCss(), $.rev()]
+        css: [$.minifyCss(), $.concatUtil.header(helpers.banner(options))],
+        js: [$.uglify(), $.concatUtil.header(helpers.banner(options))],
+        vendor: [$.ngAnnotate(), $.uglify()],
+        vendorcss: [$.minifyCss()]
       }))
       .pipe(gulp.dest(src.dist));
   });
