@@ -71,6 +71,5 @@ node_modules
 bower_components
 
 # dist directory
-dist
 .tmp
 *.tpl.js

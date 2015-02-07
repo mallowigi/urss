@@ -1,0 +1,1 @@
+.item.item_feed{transition:all .5s ease-out!important;position:relative}.item.item_feed.ng-enter{opacity:0;top:-30px}.item.item_feed.ng-enter.ng-enter-active,.item.item_feed.ng-leave{opacity:1;top:0;left:0}.item.item_feed.ng-leave.ng-leave-active{opacity:0;left:-30px}
