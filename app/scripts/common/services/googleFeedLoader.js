@@ -2,6 +2,13 @@
  * Created by Elior on 07/02/2015.
  */
 angular.module('urss.common')
+  .config(['$httpProvider', function ($httpProvider) {
+    'use strict';
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+  }])
 /**
  * @ngdoc factory
  * @name feedLoader
@@ -15,7 +22,7 @@ angular.module('urss.common')
     '$parse',
     function feedLoader ($q, $http, $parse) {
       'use strict';
-      const GOOG_URL = `http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&q=`;
+      const GOOG_URL = `http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=`;
 
       return {
         /**
@@ -27,7 +34,7 @@ angular.module('urss.common')
           // I wanted to use the new Promise API but since it has no support for finally, I abandoned the idea
           var deferred = $q.defer();
 
-          $http.get(GOOG_URL + url)
+          $http.jsonp(GOOG_URL + encodeURIComponent(url))
 
             .then((response) => {
               // Feed is contained inside a chain of properties
