@@ -16,8 +16,14 @@ angular.module('urss.feedViewer')
       restrict: 'E',
       templateUrl: 'views/partials/feedViewer.html',
       scope: {},
-      controller: ['$scope', function ($scope) {
-      }],
+      controller: [
+        '$scope',
+        'FeedViewerManager',
+        function ($scope, FeedViewerManager) {
+          // Here we store the data into a backed model so we can access it from outer directives
+          $scope.feedViewerManager = FeedViewerManager;
+        }
+      ],
       controllerAs: 'feedViewer',
       bindToController: true,
       link: function (scope, elem, attrs, ctrl) {

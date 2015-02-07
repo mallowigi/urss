@@ -23,12 +23,14 @@ angular.module('urss.feedViewer')
         'utils',
         'urlValidator',
         'saveManager',
+        'FeedViewerManager',
         function feedHistoryCtrl ($scope,
                                   $log,
                                   $timeout,
                                   utils,
                                   urlValidator,
-                                  saveManager) {
+                                  saveManager,
+                                  FeedViewerManager) {
 
           /**
            * The list of feeds
@@ -133,7 +135,7 @@ angular.module('urss.feedViewer')
           };
 
           function loadFeedIntoViewer () {
-
+            $timeout(() => FeedViewerManager.loadFeed(this.selected));
           }
 
         }
