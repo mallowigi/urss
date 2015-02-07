@@ -205,6 +205,8 @@ angular.module('urss.feedViewer')
         $document.on('keydown', function (event) {
           // Backspace
           if (event.which === 8) {
+            event.preventDefault();
+            event.stopPropagation();
             ctrl.goBack();
           }
         });
