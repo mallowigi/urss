@@ -1,17 +1,30 @@
-<div class="ui segment" ng-class="{'loading': feedViewerManager.isLoading}">
-    <header class="ui center aligned vertical segment">
-        <h1 class="ui header">URL 1</h1>
-    </header>
+<div class="ui segment" ng-class="{'loading': feedViewer.isLoading}">
 
-    <article class="ui segment">
-        <header class="ui header">
-            <h3>Title - 17/09/14</h3>
+    <!-- Case when there is a feed -->
+    <div ng-if="feedViewer.title">
+        <header class="ui center aligned vertical segment">
+            <h1 class="ui header">{{ feedViewer.title }}</h1>
         </header>
 
-        <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis delectus earum harum
-                           libero? Deleniti ducimus eius et, ipsam laborum praesentium repellendus. Eos facilis nihil
-                           nulla? Accusantium
-                           atque incidunt veritatis.</p>
-    </article>
+        <article class="ui segment">
+            <header class="ui header">
+                <h3>Title - 17/09/14</h3>
+            </header>
+
+            <p class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet corporis delectus earum harum
+                               libero? Deleniti ducimus eius et, ipsam laborum praesentium repellendus. Eos facilis nihil
+                               nulla? Accusantium
+                               atque incidunt veritatis.</p>
+        </article>
+    </div>
+
+    <div ng-if="!feedViewer.title">
+        <header class="ui center aligned vertical segment">
+            <h1 class="ui header">No feed loaded</h1>
+        </header>
+        <article class="ui center aligned vertical segment">
+            <p class="content">Please select a feed on the list</p>
+        </article>
+    </div>
 
 </div>

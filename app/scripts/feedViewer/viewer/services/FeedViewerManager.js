@@ -44,6 +44,11 @@ angular.module('urss.feedViewer')
           numArticles: numArticles,
 
           /**
+           * The Title of the feed (url)
+           */
+          title: '',
+
+          /**
            * The list of fetched articles
            */
           articles: [],
@@ -61,6 +66,7 @@ angular.module('urss.feedViewer')
 
             // Set loading state
             this.isLoading = true;
+            this.title = url;
 
             $http.get(url)
 

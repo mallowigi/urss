@@ -20,8 +20,22 @@ angular.module('urss.feedViewer')
         '$scope',
         'FeedViewerManager',
         function ($scope, FeedViewerManager) {
-          // Here we store the data into a backed model so we can access it from outer directives
-          $scope.feedViewerManager = FeedViewerManager;
+
+          // Create some getters to the feedViewerManager
+          Object.defineProperties(this, {
+            isLoading: {
+              get: () => FeedViewerManager.isLoading
+            },
+
+            title: {
+              get: () => FeedViewerManager.title
+            },
+
+            displayedArticles: {
+              get: () => FeedViewerManager.displayedArticles
+            }
+
+          });
         }
       ],
       controllerAs: 'feedViewer',
