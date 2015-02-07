@@ -19,7 +19,7 @@ angular.module('urss.feedViewer')
       controller: [
         '$scope',
         'FeedViewerManager',
-        function ($scope, FeedViewerManager) {
+        function feedViewerCtrl ($scope, FeedViewerManager) {
 
           // Create some getters to the feedViewerManager
           Object.defineProperties(this, {
@@ -41,9 +41,20 @@ angular.module('urss.feedViewer')
 
             error: {
               get: () => FeedViewerManager.error
+            },
+
+            moreArticles: {
+              get: () => FeedViewerManager.hasMoreArticles()
             }
 
           });
+
+          /**
+           * Load more articles
+           */
+          this.loadMore = function loadMore () {
+            FeedViewerManager.loadMore();
+          };
         }
       ],
       controllerAs: 'feedViewer',

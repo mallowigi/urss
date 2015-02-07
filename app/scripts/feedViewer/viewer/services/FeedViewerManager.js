@@ -122,6 +122,17 @@ angular.module('urss.feedViewer')
                 this.isLoading = false;
               })
             ;
+          },
+
+          hasMoreArticles () {
+            var numDisplayed = this.displayedArticles.length,
+                numTotal = this.articles.length;
+
+            return numDisplayed < numTotal;
+          },
+
+          loadMore () {
+            this.numArticles += numArticles;
           }
 
         };

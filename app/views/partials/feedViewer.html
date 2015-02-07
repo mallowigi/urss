@@ -12,6 +12,12 @@
                              article="article">
 
         </feed-viewer-article>
+
+        <div class="fluid ui green button center aligned"
+             ng-click="feedViewer.loadMore()"
+             ng-show="feedViewer.moreArticles">
+            Load More Articles
+        </div>
     </div>
 
     <!-- Case when there is no feed or there is an error -->
