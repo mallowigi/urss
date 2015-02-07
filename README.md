@@ -21,13 +21,18 @@
 
 ### 3) The bower way
 
-1. `bower install myGallery` (Not done yet)
+1. `bower install urss-mallowigi` (not optimized, you still need to import the vendors along with the application right now)
+2. Add the module `urssApp` in your application
+3. Start using the directives in your layout
+
+### Example page:
+http://mallowigi.github.io/urss/
 
 
 -----
 
 ## Notes:
 
-* This plugin heavily requires the [Semantic UI Library](http://semantic-ui.com/), therefore, for a better usage please import the 
+* This plugin heavily requires the [Semantic UI Library](http://semantic-ui.com/), therefore, for a better usage please import the
 Semantic UI Library before importing the plugin's css.
 * Be careful that your stylesheets are not overriding the plugin stylesheets.
